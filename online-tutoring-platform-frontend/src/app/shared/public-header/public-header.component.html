@@ -1,0 +1,212 @@
+<header
+  #headerElement
+  class="ease-in-out transition-colors duration-300 z-[999] sticky top-0 left-0 w-full flex items-center justify-between gap-2 px-app-secondary-padding xl:px-app-primary-padding min-h-[100px]"
+>
+  <div
+    #progressBarElement
+    class="transition-all duration-300 ease-out absolute left-0 bottom-0 h-[2px] bg-app-primay-dark"
+  ></div>
+  <a class="min-w-[143px]" routerLink="/">
+    <img src="assets/svg/logo.svg" alt="Vendiko logo" width="143" height="36" />
+  </a>
+  <button
+    role="button"
+    class="block transition-colors duration-300 ease-in-out text-app-primay-dark hover:text-app-secondary-dark xl:hidden"
+    (click)="toggleNav()"
+  >
+    <!-- close -->
+    @if (isNavOpen) {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-8 h-8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </svg>
+    } @else {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-8 h-8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        />
+      </svg>
+    }
+  </button>
+
+  <nav
+    class="overflow-auto transition-transform duration-300 ease-out bg-white absolute top-full p-app-secondary-padding left-0 h-[calc(100vh-100px)] w-full transform {{
+      isNavOpen ? 'translate-y-0' : '-translate-y-[calc(100%+100px)]'
+    }} xl:relative xl:translate-y-0 xl:h-auto xl:w-auto xl:bg-transparent xl:p-0 xl:overflow-visible"
+  >
+    <ul
+      class="flex items-start gap-x-12 gap-y-8 flex-col xl:flex-row xl:items-center"
+    >
+      @for (linkEntry of navItems.links; track linkEntry.href) {
+        <li
+          class="relative text-app-primay-dark font-medium text-lg transition-colors duration-300 ease-in-out hover:text-app-secondary-dark has-[.link-active]:text-app-secondary-dark"
+        >
+          @if (linkEntry.href === "/services") {
+            <div
+              class="hidden items-center gap-2 cursor-pointer xl:flex"
+              (click)="servicesLinkClickHandler($event)"
+              (mouseenter)="openServicesLinks()"
+              (mouseleave)="closeServicesLinks()"
+              [ngClass]="{ 'link-active': currentRoute().includes('services') }"
+            >
+              {{ linkEntry.name }}
+              <svg
+                width="9"
+                height="5"
+                viewBox="0 0 9 5"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.60783 0.88208L4.6397 3.31799L7.67158 0.88208L8.60294 1.632L4.6397 4.82314L0.676468 1.632L1.60783 0.88208Z"
+                  fill="#02016F"
+                />
+              </svg>
+              <!-- sublinks -->
+
+              @if (isServicesLinksOpen) {
+                <ul
+                  class="servicesLinksList z-[999] relative left-0 top-0 flex flex-col gap-5 bg-white pt-5 w-full xl:p-8 xl:shadow-headerLinksShadow xl:w-[550px] xl:rounded-lg xl:absolute xl:top-[calc(100%+1.5rem)]"
+                >
+                  @for (link of subLinks; track link) {
+                    <li style="--item-index: {{ $index }}" class="w-full">
+                      <button
+                        class="w-full group z-10 overflow-hidden relative border border-solid border-[rgba(216,216,216,1)] flex items-center gap-6 text-app-primay-dark rounded-xl bg-white px-4 py-3 transition-all duration-300"
+                        (click)="navigateWithQueryParams(link.queryValue)"
+                      >
+                        <div
+                          class="absolute z-[-1] left-0 top-0 transition-all duration-300 ease-out w-0 h-full bg-headerLinksGradient group-hover:w-full"
+                        ></div>
+                        <img
+                          src="assets/icons/{{ link.icon }}"
+                          [alt]="link.name"
+                          width="35"
+                          height="35"
+                        />
+
+                        <div class="flex-1 text-start">
+                          <span class="font-medium text-lg capitalize">{{
+                            link.name
+                          }}</span>
+                          <p class="font-light text-xs mt-2">
+                            {{ link.description }}
+                          </p>
+                        </div>
+                      </button>
+                    </li>
+                  }
+                </ul>
+              }
+              <!-- sublinks -->
+            </div>
+
+            <div
+              class="flex items-center gap-2 cursor-pointer xl:hidden"
+              (click)="
+                isServicesLinksOpen
+                  ? closeServicesLinks(false)
+                  : openServicesLinks()
+              "
+            >
+              {{ linkEntry.name }}
+              <svg
+                width="9"
+                height="5"
+                viewBox="0 0 9 5"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.60783 0.88208L4.6397 3.31799L7.67158 0.88208L8.60294 1.632L4.6397 4.82314L0.676468 1.632L1.60783 0.88208Z"
+                  fill="#02016F"
+                />
+              </svg>
+            </div>
+
+            <!-- sublinks -->
+
+            @if (isServicesLinksOpen) {
+              <ul
+                class="servicesLinksList z-50 relative left-0 top-0 flex flex-col gap-5 bg-white pt-5 w-full xl:p-8 xl:shadow-headerLinksShadow xl:w-[550px] xl:rounded-lg xl:absolute xl:top-[calc(100%+1.5rem)]"
+              >
+                @for (link of subLinks; track link) {
+                  <li
+                    style="--item-index: {{ $index }}"
+                    class="text-start w-full"
+                  >
+                    <button
+                      (click)="navigateWithQueryParams(link.queryValue)"
+                      class="w-full group z-10 overflow-hidden relative border border-solid border-[rgba(216,216,216,1)] flex items-center gap-6 text-app-primay-dark rounded-xl bg-white px-4 py-3 transition-all duration-300"
+                    >
+                      <div
+                        class="absolute z-[-1] left-0 top-0 transition-all duration-300 ease-out w-0 h-full bg-headerLinksGradient group-hover:w-full"
+                      ></div>
+                      <img
+                        src="assets/icons/{{ link.icon }}"
+                        [alt]="link.name"
+                        width="35"
+                        height="35"
+                      />
+
+                      <div class="flex-1 text-start">
+                        <span class="font-medium text-lg capitalize">{{
+                          link.name
+                        }}</span>
+                        <p class="font-light text-xs mt-2">
+                          {{ link.description }}
+                        </p>
+                      </div>
+                    </button>
+                  </li>
+                }
+              </ul>
+            }
+            <!-- sublinks -->
+          } @else {
+            <a
+              class="flex items-center gap-2"
+              [routerLink]="linkEntry.href"
+              routerLinkActive="link-active"
+              >{{ linkEntry.name }}
+            </a>
+          }
+        </li>
+      }
+      <div
+        class="flex items-start gap-x-8 gap-y-8 flex-col sm:flex-row xl:items-center xl:gap-x-12"
+      >
+        <li class="text-sm">
+<!--          <app-secondary-button [buttonData]="navItems.buttons[0]" />-->
+        </li>
+        <li class="text-sm">
+          <!-- <app-primary-button [buttonData]="navItems.buttons[1]" /> -->
+          <a
+          href="https://calendly.com/contact-vjuv/30min"
+          target="_blank"
+          class="block text-center transition-colors ease-out duration-300 relative w-full tracking-[1.25px] px-[2em] py-[0.5em] rounded-[10px] font-medium text-inherit text-white z-10 group bg-app-primay-dark hover:bg-app-secondary-dark"
+          >Demander une démo</a>
+        </li>
+      </div>
+    </ul>
+  </nav>
+</header>
+<div class="hidden h-10 lg:block"></div>
