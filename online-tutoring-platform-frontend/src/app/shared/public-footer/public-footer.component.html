@@ -1,0 +1,110 @@
+<footer
+  class="px-app-secondary-padding pb-8 pt-6 bg-app-primay-dark lg:pb-8 xl:px-app-primary-padding"
+>
+  <!-- form -->
+
+
+  <!-- top -->
+  <div class="flex items-start gap-x-24 gap-y-12 flex-wrap">
+    <!-- logo -->
+    <div class="flex flex-col items-center flex-1">
+      <!-- image -->
+      <div class="min-w-[223px]">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+        </svg>
+      </div>
+      <p class="text-center text-sm text-gray-300 leading-8 py-8  max-w-[320px]">
+        Rejoignez online tutoring platforme dès aujourd'hui pour libérer tout le potentiel de
+        votre entrepris
+      </p>
+      <!-- socials -->
+      <ul class="flex items-center justify-center gap-4">
+        <li class="text-app-accent-light">
+          <a href="https://web.facebook.com/" target="_blank">
+<!--            <app-facebook-icon />-->
+            feacbook
+          </a>
+        </li>
+
+        <!-- <li class="text-app-accent-light"> -->
+        <!--   <a href="#"> -->
+        <!--     <app-instagram-icon /> -->
+        <!--   </a> -->
+        <!-- </li> -->
+
+        <li class="text-app-accent-light">
+          <a href="https://www.linkedin.com/company/vendiicoo/" target="_blank">
+<!--            <app-linkedin-icon />-->
+            linkden
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- produits -->
+    <div class="text-white flex-1">
+      <h3 class="capitalize font-semibold text-xl my-6">produits</h3>
+      <ul class="flex flex-col gap-4">
+        @for (entry of footerItems.products; track entry.href) {
+          <li>
+            <a
+              class="flex items-center gap-2"
+              [routerLink]="entry.href"
+              [queryParams]="
+                entry.queryParam ? { section: entry.queryParam } : {}
+              "
+            >
+              <span>&#8226;</span>{{ entry.name }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+    <!-- supports -->
+    <div class="text-white flex-1">
+      <h3 class="w-fit capitalize font-semibold text-xl my-6">Légal</h3>
+      <ul class="flex flex-col gap-4">
+        @for (entry of footerItems.legal; track entry.href) {
+          <li>
+            <a class="flex items-center gap-2" [routerLink]="entry.href">
+              <span>&#8226;</span>{{ entry.name }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+    <!-- entreprise -->
+    <div class="text-white flex-1">
+      <h3 class="w-fit capitalize font-semibold text-xl my-6">entreprise</h3>
+      <ul class="flex flex-col gap-y-4">
+        @for (entry of footerItems.business; track entry.href) {
+          <li>
+            <a class="flex items-center gap-2" [routerLink]="entry.href">
+              <span>&#8226;</span>{{ entry.name }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+    <!-- labs -->
+    <div class="text-white flex-1">
+      <h3 class="w-fit capitalize font-semibold text-xl my-6">langue</h3>
+      <ul class="flex flex-col gap-y-4">
+        @for (entry of footerItems.language; track entry) {
+          <li class="flex items-center gap-2">
+            <span>&#8226;</span>
+            {{ entry.name }}
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+  <!-- bottom -->
+  <div
+    class="flex items-center mt-12 pb-0 pt-8 border-t border-white border-solid mx-auto text-white text-xs w-full justify-between lg:pb-8 lg:max-w-[80%]"
+  >
+    <p>&copy; {{ currentYear }}.tous droits réservés</p>
+    <p>Crée PAR CODINGART</p>
+  </div>
+</footer>

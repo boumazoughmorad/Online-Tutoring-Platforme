@@ -28,7 +28,7 @@ type TSubLinks = {
   description: string;
 }[];
 
-type TSectionName = 'marketing' | 'vente' | 'facturation' | 'tresorie';
+type TSectionName = 'Cours-de-langue-en-ligne' | 'Heures-assistance' | 'Orientation' | 'Rencontres';
 
 @Component({
   selector: 'app-header',
@@ -56,31 +56,31 @@ export class PublicHeaderComponent implements AfterViewInit, OnInit {
 
   subLinks: TSubLinks = [
     {
-      name: 'marketing',
-      icon: 'performance.png',
-      queryValue: 'marketing',
+      name: 'Cours de langue en ligne',
+      icon: 'Cours-de-langue-en-ligne.png',
+      queryValue: 'Cours-de-langue-en-ligne',
       description:
-        'Boostez votre entreprise avec une gestion en ligne efficace et performante.',
+        'Permet aux étudiants de choisir la langue qu\'ils souhaitent apprendre, avec des professeurs disponibles pour donner des leçons individuelles ou en groupe.',
     },
     {
-      name: 'vente',
-      icon: 'sell.png',
-      queryValue: 'vente',
+      name: 'Heures d\'assistance',
+      icon: 'Heures-assistance.png',
+      queryValue: 'Heures-assistance',
       description:
-        'Accroissez vos revenus en optimisant vos ventes et en améliorant leur efficacité.',
+        'Les étudiants peuvent réserver des heures d\'assistance pour poser des questions sur leurs études ou recevoir du soutien supplémentaire..',
     },
     {
-      name: 'facturation',
-      icon: 'bill.png',
-      queryValue: 'facturation',
+      name: 'Orientation scolaire et professionnelle',
+      icon: 'Orientation.png',
+      queryValue: 'Orientation',
       description:
-        'Économisez du temps sur la gestion de vos facturations et transactions financières.',
+        'Des sessions de conseils sur les choix de carrière et de parcours scolaire, en fonction des compétences et des intérêts de l\'étudiant..',
     },
     {
-      name: 'trésorie',
-      icon: 'contract.png',
-      queryValue: 'tresorie',
-      description: 'Gérez facilement votre trésorerie au quotidien.',
+      name: 'Rencontres individuelles ou en groupe',
+      icon: 'Rencontres.png',
+      queryValue: 'Rencontres',
+      description: 'Les étudiants peuvent choisir de suivre des cours en tête-à-tête ou dans un groupe, selon leurs préférences..',
     },
   ];
 
@@ -166,7 +166,7 @@ export class PublicHeaderComponent implements AfterViewInit, OnInit {
 
   navigateWithQueryParams(queryValue: TSectionName): void {
     this.router.navigate(['/services'], {
-      queryParams: queryValue === 'marketing' ? {} : { section: queryValue },
+      queryParams: queryValue === 'Cours-de-langue-en-ligne' ? {} : { section: queryValue },
     });
   }
 

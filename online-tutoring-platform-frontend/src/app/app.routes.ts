@@ -7,12 +7,12 @@ export const routes: Routes = [{
       (m) => m.PublicHomeComponent
     ),
   children: [
-    // {
-    //   path: 'pricing',
-    //   loadComponent: () =>
-    //     import(
-    //       './features/brochure-website/pages/pricing/pricing.component'
-    //       ).then((m) => m.PricingComponent),
-    // },
+    {
+      path: '',
+      loadComponent: () =>
+        import(
+          './public/public-home-page/public-home-page.component'
+          ).then((m) => m.PublicHomePageComponent),
+    },
   ]
 }];

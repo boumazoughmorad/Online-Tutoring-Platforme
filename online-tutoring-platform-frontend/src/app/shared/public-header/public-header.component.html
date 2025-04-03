@@ -1,17 +1,22 @@
 <header
   #headerElement
-  class="ease-in-out transition-colors duration-300 z-[999] sticky top-0 left-0 w-full flex items-center justify-between gap-2 px-app-secondary-padding xl:px-app-primary-padding min-h-[100px]"
+  class="ease-in-out  px-9 transition-colors duration-300 z-[999] sticky top-0 left-0 w-full flex items-center justify-between gap-2   min-h-[100px]"
 >
   <div
     #progressBarElement
-    class="transition-all duration-300 ease-out absolute left-0 bottom-0 h-[2px] bg-app-primay-dark"
+    class="transition-all duration-300 ease-out absolute left-0 bottom-0 h-[2px] bg-black"
   ></div>
-  <a class="min-w-[143px]" routerLink="/">
-    <img src="assets/svg/logo.svg" alt="Vendiko logo" width="143" height="36" />
+
+  <a class="iconLogo min-w-[143px] flex items-center" routerLink="/">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+      <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+    </svg>
+    <h1>Online Tutoring</h1>
   </a>
   <button
     role="button"
-    class="block transition-colors duration-300 ease-in-out text-app-primay-dark hover:text-app-secondary-dark xl:hidden"
+    class="block transition-colors duration-300 ease-in-out text-black hover:text-app-secondary-dark xl:hidden"
     (click)="toggleNav()"
   >
     <!-- close -->
@@ -96,6 +101,7 @@
                         <div
                           class="absolute z-[-1] left-0 top-0 transition-all duration-300 ease-out w-0 h-full bg-headerLinksGradient group-hover:w-full"
                         ></div>
+
                         <img
                           src="assets/icons/{{ link.icon }}"
                           [alt]="link.name"
