@@ -18,7 +18,7 @@ import { NgClass } from '@angular/common';
 
 type TNavLinks = {
   links: { name: string; href: string }[];
-  buttons: { name: string; href: string; behaviour: 'link' | 'button' }[];
+ 
 };
 
 type TSubLinks = {
@@ -86,19 +86,21 @@ export class PublicHeaderComponent implements AfterViewInit, OnInit {
 
   navItems: TNavLinks = {
     links: [
+
+      { name: 'trouver des tuteurs', href: '/user-login' },
+      { name: 'devenir tuteurs', href: '/tutor-login' },
+      { name: 'pour les affaires', href: '/forBusness' },
+
       {
         name: 'Services',
         href: '/services',
       },
-      { name: 'Tarification', href: '/pricing' },
-      { name: 'A Propos', href: '/about-us' },
-      { name: 'FAQ', href: '/faq' },
+      { name: 'About', href: '/about-us' },
       { name: 'Contact', href: '/contact-us' },
+      { name: 'Comment fonctionne notre plateforme', href: '/how-platform-work' },
+      
     ],
-    buttons: [
-      { name: 'Essai gratuit', href: '/register', behaviour: 'link' },
-      //{ name: 'Se connecter', href: '/login', behaviour: 'link' },
-    ],
+
   };
 
   //onScroll evenet to the window

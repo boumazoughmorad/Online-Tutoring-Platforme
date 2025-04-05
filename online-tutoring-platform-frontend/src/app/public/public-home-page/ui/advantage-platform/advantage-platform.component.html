@@ -1,0 +1,31 @@
+<!-- advantages.component.html -->
+<section class="py-16 bg-gradient-to-b from-secondary/10 to-bg">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-12 text-primary">Pourquoi choisir notre plateforme ?</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div 
+          *ngFor="let advantage of advantages; let i = index"
+          class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-l-4  border-primary card "
+          [style.--item-index]="i"
+          [style.animation-delay]="i * 100 + 'ms'"
+        
+          [class.border-accent]="currentHoveredIndex === i"
+          (mouseenter)="currentHoveredIndex = i"
+          (mouseleave)="currentHoveredIndex = null"
+        >
+          <div class="text-4xl mb-4">{{ advantage.icon }}</div>
+          <h3 class="text-xl font-semibold mb-2">{{ advantage.title }}</h3>
+          <p class="text-gray-600">{{ advantage.description }}</p>
+        </div>
+      </div>
+  
+      <!-- CTA Section -->
+      <div class="mt-16 text-center">
+        <h3 class="text-2xl font-medium mb-6">Prêt à commencer votre voyage d'apprentissage ?</h3>
+        <button class="px-8 py-3 bg-accent text-white rounded-lg font-medium hover:bg-primary transition-colors duration-300">
+          S'inscrire maintenant
+        </button>
+      </div>
+    </div>
+  </section>

@@ -33,7 +33,7 @@ export class PublicFooterComponent {
       { name: 'Politique de confidentialité', href: '/privacy' },
     ],
     business: [
-      { name: 'A Propos', href: '/about-us' },
+      { name: 'About', href: '/about-us' },
       { name: 'Contactez-nous', href: '/contact-us' },
     ],
     language: [{ name: 'Français' }, { name: 'Arabe' }],

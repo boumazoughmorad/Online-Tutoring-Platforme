@@ -1,0 +1,50 @@
+<section class="flex flex-col gap-8 p-8 md:p-12 lg:p-20 w-full max-w-7xl mx-auto">
+  <!-- Title Section -->
+  <div class="text-center mb-8">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4">
+      Nos Services de Tutorat
+    </h1>
+    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+      Découvrez notre gamme complète de services éducatifs personnalisés conçus pour 
+      répondre à tous vos besoins d'apprentissage. Sélectionnez une catégorie pour 
+      explorer nos offres détaillées.
+    </p>
+  </div>
+
+  <!-- Services List -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+      Choisissez votre domaine d'apprentissage
+    </h2>
+    
+    <ul class="flex flex-col gap-4 sm:gap-6">
+      @for (category of categories; track category.id) {
+        <li (click)="changeSelectCategories(category.id)" class="cursor-pointer">
+          <app-item-our-service
+            [category]="category"
+            [selectedCategoryId]="selectedCategoryId()"
+          />
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Additional Info Section -->
+  <div class="mt-8 bg-secondary/10 p-6 rounded-xl">
+    <h3 class="text-xl font-medium text-primary mb-4">Pourquoi choisir nos services ?</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-4 rounded-lg shadow-xs">
+        <h4 class="font-semibold mb-2">🎯 Approche personnalisée</h4>
+        <p class="text-sm text-gray-600">Programmes adaptés à votre niveau et objectifs</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-xs">
+        <h4 class="font-semibold mb-2">🏆 Tuteurs experts</h4>
+        <p class="text-sm text-gray-600">Professionnels certifiés et expérimentés</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-xs">
+        <h4 class="font-semibold mb-2">⏱️ Flexibilité totale</h4>
+        <p class="text-sm text-gray-600">Apprenez quand vous voulez, où vous voulez</p>
+      </div>
+    </div>
+  </div>
+</section>

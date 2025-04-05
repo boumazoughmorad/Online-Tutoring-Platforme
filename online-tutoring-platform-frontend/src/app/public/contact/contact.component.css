@@ -1,0 +1,26 @@
+/* contact.component.css */
+:host {
+    display: block;
+    background-color: #f9fafb; /* Light gray background */
+  }
+  
+  /* Animation for form elements */
+  .form-element {
+    transition: all 0.3s ease;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .contact-info, .contact-form {
+      padding: 1.5rem;
+    }
+  }
+  
+  /* Focus styles */
+  input:focus, textarea:focus {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  }

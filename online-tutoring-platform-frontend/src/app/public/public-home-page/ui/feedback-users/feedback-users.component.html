@@ -1,0 +1,105 @@
+<section class="flex flex-col items-center py-16 px-4 bg-gradient-to-b from-white to-gray-50">
+    <!-- Header -->
+    <div class="text-center max-w-4xl mb-12">
+      <h1 class="text-5xl font-bold text-gray-900 mb-4">Trouvez le tuteur qui vous convient</h1>
+      <p class="text-xl font-light text-gray-600">Avec plus de 30 000 tuteurs et plus d'un million d'apprenants, nous connaissons l'apprentissage des langues</p>
+    </div>
+  
+    <!-- Feedback Carousel -->
+    <div class="w-full max-w-7xl flex flex-col lg:flex-row items-center gap-8 lg:gap-16 justify-center ">
+      <!-- Navigation Arrow (Left) -->
+      <button (click)="prevFeedback()" class="hidden lg:flex items-center justify-center w-12 h-12   hover:bg-gray-100 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+  
+      <!-- Image Stack -->
+      <div class="relative h-[420px] w-[380px] flex-shrink-0 perspective-1000">
+        <!-- Animated background glow -->
+        <div class="absolute inset-0 bg-accent/10 rounded-3xl blur-xl opacity-0 animate-pulse-slow group-hover:opacity-100 transition-opacity duration-1000"></div>
+      
+        <!-- Image stack with 3D effect -->
+        <div class="relative w-full h-full transition-all duration-1000 transform-style-preserve-3d">
+          <!-- Back layer (subtle) -->
+          <img [src]="selectedFeedback.image" 
+               class="absolute h-[300px] w-[250px] object-cover rounded-2xl shadow-xl left-12 bottom-8 border-4 border-white/80 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+               >
+      
+          <!-- Middle layer -->
+          <img [src]="selectedFeedback.image" 
+               class="absolute h-[340px] w-[290px] object-cover rounded-2xl shadow-xl z-10 left-20 top-12 border-4 border-white/80 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+              >
+      
+          <!-- Front layer (main focus) -->
+          <img [src]="selectedFeedback.image" 
+               class="absolute h-[380px] w-[330px] object-cover rounded-2xl shadow-2xl z-20 left-28 top-4 border-4 border-white/80 transition-all duration-300 ease-out group-hover:scale-[1.02] group-hover:shadow-lg animate-float"
+               >
+      
+          <!-- Animated info badge -->
+          <div class="absolute flex gap-2 z-40 right-0 bottom-8 translate-x-4 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
+            <span class=" py-2 px-4 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium backdrop-blur-sm bg-white/90 animate-slide-up-0-5">
+              {{selectedFeedback.name}}
+            </span>
+            <span class=" py-2 px-4 text-white rounded-md shadow-sm font-medium backdrop-blur-sm bg-green-600/90 animate-slide-up-0-7">
+              {{selectedFeedback.conty}}
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Feedback Content -->
+      <div class="flex flex-col space-y-6 max-w-2xl ml-5">
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-gray-300 absolute -top-2 -left-2">
+            <path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223z" clip-rule="evenodd" />
+          </svg>
+          <p class="text-3xl lg:text-4xl font-medium text-gray-800 italic pl-8">"{{selectedFeedback.feedbackMessage}}"</p>
+        </div>
+  
+        <div class="flex items-center gap-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <span class="text-lg text-gray-600">{{selectedFeedback.likefeedbackNumber}} likes</span>
+        </div>
+  
+        <div class="flex flex-col">
+          <span class="text-xl font-semibold text-gray-900">{{selectedFeedback.name}}</span>
+          <span class="text-lg text-gray-600">{{selectedFeedback.TypeCategory}} • {{selectedFeedback.conty}}</span>
+        </div>
+  
+        <!-- Navigation Dots -->
+        <div class="flex gap-2 pt-4">
+          @for (item of feedback; track item.id) {
+            <button 
+              class="w-3 h-3 rounded-full transition-all duration-300"
+              [class]="item.id === selectedFeedback.id ? 'bg-pink-600 w-6' : 'bg-gray-300'"
+              (click)="selectFeedback(item)">
+            </button>
+          }
+        </div>
+      </div>
+  
+      <!-- Navigation Arrow (Right) -->
+      <button (click)="nextFeedback()" class="hidden lg:flex items-center justify-center w-12 h-12  hover:bg-gray-100 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  
+    <!-- Mobile Navigation -->
+    <div class="flex lg:hidden gap-8 mt-8">
+      <button (click)="prevFeedback()" class="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button (click)="nextFeedback()" class="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </section>
