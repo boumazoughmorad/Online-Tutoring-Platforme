@@ -1,0 +1,23 @@
+<div *ngIf="selectedTutor" class="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-50" (click)="closeVideo()">
+    <div class="bg-white rounded-lg overflow-hidden w-full max-w-4xl" (click)="$event.stopPropagation()">
+      <div class="p-4 flex justify-between items-center border-b">
+        <h3 class="text-lg font-medium">{{selectedTutor.name}}'s Introduction</h3>
+        <button (click)="closeVideo()" class="text-gray-500 hover:text-gray-700">
+          <!-- <app-icon iconName="x" class="h-6 w-6"></app-icon> -->
+        </button>
+      </div>
+      <div class="aspect-w-16 aspect-h-9">
+        <iframe 
+          *ngIf="selectedTutor"
+          width="100%" 
+          height="450"
+          [src]="getSafeEmbedUrl(selectedTutor.introduce_linkyoutube)" 
+  
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+          class="w-full h-[450px]"
+        ></iframe>
+      </div>
+    </div>
+  </div>

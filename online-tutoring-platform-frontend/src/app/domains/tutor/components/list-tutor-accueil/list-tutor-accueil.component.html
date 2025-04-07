@@ -1,0 +1,12 @@
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+ <div *ngFor="let tutor of tutors" class="bg-white rounded-lg  shadow overflow-hidden hover:shadow-md transition-shadow">
+            
+      <app-card-tutor [tutor]="tutor"/>  
+
+
+  </div>
+</div>
+        <!-- Pagination -->
+<app-pagination/>

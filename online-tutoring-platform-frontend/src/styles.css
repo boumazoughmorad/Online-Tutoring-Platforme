@@ -34,7 +34,7 @@
 /* Styles de base */
 body {
   @apply bg-[var(--bg)] text-[var(--text)];
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto',"Poppins", sans-serif;
 }
 
 /* Styles typographiques */
@@ -141,4 +141,18 @@ a {
   .card {
     @apply bg-gray-900;
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
 }

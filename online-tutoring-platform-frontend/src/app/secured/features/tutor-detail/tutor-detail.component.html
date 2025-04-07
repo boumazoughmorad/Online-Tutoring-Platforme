@@ -1,0 +1,221 @@
+<div class="bg-gray-50 min-h-screen">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <!-- Tutor Avatar -->
+          <div class="relative">
+            <img class="h-32 w-32 rounded-full border-4 border-white shadow-lg" 
+                 [src]="tutor.avatar" 
+                 [alt]="tutor.name">
+            <button *ngIf="tutor.videoId" 
+                    (click)="playVideo()"
+                    class="absolute -bottom-2 -right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-all shadow-md">
+              <app-icon iconName="play" class="h-5 w-5"></app-icon>
+            </button>
+          </div>
+          
+          <!-- Tutor Info -->
+          <div class="flex-1">
+            <h1 class="text-3xl font-bold">{{tutor.name}}</h1>
+            <div class="flex items-center mt-2">
+              <app-icon iconName="star" class="h-5 w-5 text-yellow-400"></app-icon>
+              <span class="ml-1 font-medium">{{tutor.rating}} ({{tutor.reviews}} reviews)</span>
+            </div>
+            <p class="mt-2 text-blue-100">{{tutor.specialization}}</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span *ngFor="let badge of tutor.badges" 
+                    class="px-2 py-1 text-xs rounded-full bg-white bg-opacity-20">
+                {{badge}}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Action Button -->
+          <div class="mt-4 md:mt-0">
+            <button class="px-6 py-3 bg-white text-blue-600 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg">
+              Book Trial Lesson - ${{tutor.trialPrice}}
+            </button>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <!-- Message Button -->
+            <button (click)="openMessageModal()" class="flex items-center px-4 py-2 bg-white text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
+              <app-icon iconName="message-square" class="h-5 w-5 mr-2"></app-icon>
+              Message
+            </button>
+            
+            <!-- Save to List Button -->
+            <button (click)="toggleSaveToList()" 
+                    class="flex items-center px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+              <app-icon [iconName]="isSaved ? 'bookmark' : 'bookmark-outline'" class="h-5 w-5 mr-2"></app-icon>
+              {{ isSaved ? 'Saved' : 'Save to my list' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Left Column -->
+        <div class="lg:w-2/3">
+          <!-- About Section -->
+          <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4">About Me</h2>
+            <p class="text-gray-700">{{tutor.bio}}</p>
+            
+            <!-- Video Introduction (thumbnail) -->
+            <div *ngIf="tutor.videoId" class="mt-6">
+              <div (click)="playVideo()" class="relative cursor-pointer rounded-xl overflow-hidden bg-gray-200 aspect-video">
+                <img [src]="'https://img.youtube.com/vi/' + tutor.videoId + '/maxresdefault.jpg'" 
+                     [alt]="tutor.name + ' introduction video'" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-20 transition-all">
+                  <app-icon iconName="play" class="h-16 w-16 text-white opacity-90"></app-icon>
+                </div>
+              </div>
+              <p class="mt-2 text-sm text-gray-500 text-center">Watch my introduction video</p>
+            </div>
+          </div>
+  
+          <!-- Experience & Qualifications -->
+          <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4">Experience & Qualifications</h2>
+            <div class="space-y-4">
+              <div *ngFor="let item of tutor.qualifications" class="flex">
+                <div class="flex-shrink-0 mr-4 mt-0.5">
+                  <app-icon [iconName]="item.icon" class="h-5 w-5 text-blue-600"></app-icon>
+                </div>
+                <div>
+                  <h3 class="font-medium">{{item.title}}</h3>
+                  <p class="text-sm text-gray-600">{{item.description}}</p>
+                  <p *ngIf="item.year" class="text-xs text-gray-500 mt-1">{{item.year}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Reviews -->
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-bold mb-4">Student Reviews ({{tutor.reviews}})</h2>
+            <div class="space-y-6">
+              <div *ngFor="let review of tutor.reviewList" class="border-b border-gray-100 pb-6 last:border-0">
+                <div class="flex items-center mb-2">
+                  <div class="flex items-center">
+                    <span *ngFor="let star of [1,2,3,4,5]" class="mr-0.5">
+                      <app-icon iconName="star" 
+                                [class.text-yellow-400]="star <= review.rating"
+                                [class.text-gray-300]="star > review.rating"
+                                class="h-4 w-4"></app-icon>
+                    </span>
+                  </div>
+                  <span class="ml-2 text-sm font-medium">{{review.rating}}.0</span>
+                </div>
+                <p class="text-gray-700 mb-2">{{review.comment}}</p>
+                <p class="text-sm text-gray-500">{{review.student}} • {{review.date}}</p>
+              </div>
+            </div>
+            <button class="mt-4 text-blue-600 font-medium hover:underline">
+              Show all reviews
+            </button>
+          </div>
+        </div>
+  
+        <!-- Right Column -->
+        <div class="lg:w-1/3">
+          <!-- Pricing -->
+          <div class="bg-white rounded-xl shadow-sm p-6 mb-6  top-4">
+            <h2 class="text-xl font-bold mb-4">Pricing</h2>
+            <div class="space-y-4">
+              <div *ngFor="let plan of tutor.pricing" 
+                   [class.border-blue-500]="plan.popular"
+                   class="border rounded-lg p-4 relative">
+                <div *ngIf="plan.popular" 
+                     class="absolute -top-2 -right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+                  Popular
+                </div>
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h3 class="font-medium">{{plan.lessons}} lessons</h3>
+                    <p class="text-sm text-gray-600">{{plan.duration}} each</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-bold">${{plan.price}}/lesson</p>
+                    <p class="text-sm text-gray-500">${{plan.total}} total</p>
+                  </div>
+                </div>
+                <button class="mt-3 w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  Choose Plan
+                </button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Availability -->
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-bold mb-4">Availability</h2>
+            <div class="grid grid-cols-7 gap-1 mb-2">
+              <div *ngFor="let day of ['S', 'M', 'T', 'W', 'T', 'F', 'S']" 
+                   class="text-center text-xs font-medium text-gray-500">
+                {{day}}
+              </div>
+            </div>
+            <div class="grid grid-cols-7 gap-1">
+              <div *ngFor="let date of calendarDays" 
+                   [class.text-blue-600]="date.available"
+                   [class.text-gray-400]="!date.available"
+                   class="text-center py-1 text-sm font-medium">
+                {{date.day}}
+              </div>
+            </div>
+            <button class="mt-4 w-full py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors">
+              See full calendar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Video Modal -->
+    <div *ngIf="showVideo" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75" (click)="closeVideo()">
+      <div class="bg-white rounded-xl w-full max-w-4xl mx-4 overflow-hidden" (click)="$event.stopPropagation()">
+        <div class="p-4 flex justify-between items-center border-b">
+          <h3 class="text-lg font-medium">{{tutor.name}}'s Introduction</h3>
+          <button (click)="closeVideo()" class="text-gray-500 hover:text-gray-700">
+            <app-icon iconName="x" class="h-6 w-6"></app-icon>
+          </button>
+        </div>
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe 
+            width="100%" 
+            height="450"
+            [src]="getSafeEmbedUrl(tutor.videoId)" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            class="w-full h-[450px]"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message Modal -->
+<div *ngIf="showMessageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75" (click)="closeMessageModal()">
+    <div class="bg-white rounded-xl w-full max-w-md mx-4 overflow-hidden" (click)="$event.stopPropagation()">
+      <div class="p-4 flex justify-between items-center border-b">
+        <h3 class="text-lg font-medium">Message {{tutor.name}}</h3>
+        <button (click)="closeMessageModal()" class="text-gray-500 hover:text-gray-700">
+          <app-icon iconName="x" class="h-6 w-6"></app-icon>
+        </button>
+      </div>
+      <div class="p-6">
+        <textarea class="w-full border border-gray-300 rounded-lg p-3 h-32 mb-4" 
+                  placeholder="Write your message here..."></textarea>
+        <button class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          Send Message
+        </button>
+      </div>
+    </div>
+  </div>

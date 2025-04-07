@@ -1,0 +1,46 @@
+<header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        
+        <!-- Logo & Main Navigation -->
+        <div class="flex items-center space-x-8">
+          <!-- Logo -->
+          <app-header-workspace-user-logo/>
+          
+          <!-- Primary Nav (Desktop) -->
+           <app-header-workspace-user-nav-desktop/>
+         
+        </div>
+  
+        <!-- Right Side Controls -->
+        <div class="flex items-center space-x-4">
+          
+          <!-- Search Bar -->
+          <app-header-workpace-user-search-bar/>
+  
+          <!-- Notification & Messages -->
+          <div class="flex space-x-1">
+
+            <app-notification-bell/>
+      
+            <app-header-workspace-user-messages/>
+            
+          </div> 
+  
+          <!-- User Profile Dropdown -->
+          <app-header-workspace-user-profile 
+                        (CloseMobileMenuOpen)="mobileMenuOpen = false"/>
+  
+          <!-- Mobile menu button -->
+            <app-header-workspace-user-button-mobile-menu 
+                        [mobileMenuOpen]="mobileMenuOpen"
+                        (toggleMobileMenu)="toggleMobileMenu()"/>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Mobile Menu -->
+    <app-header-workspace-user-mobile-menu 
+
+    [mobileMenuOpen]="mobileMenuOpen"/>
+  </header>

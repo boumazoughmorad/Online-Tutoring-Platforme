@@ -1,0 +1,15 @@
+<div class="bg-white rounded-lg shadow p-4 mb-6 flex justify-between items-center">
+    <div>
+      <span class="text-sm text-gray-600">Affichage de</span>
+      <span class="font-medium ml-1">1-12</span>
+      <span class="text-sm text-gray-600 ml-1">sur 245 tuteurs</span>
+    </div>
+    <div class="flex items-center">
+      <span class="text-sm text-gray-600 mr-2">Trier par:</span>
+      <select [(ngModel)]="selectedSort" (change)="changeSelectSort()" class="border-none text-sm font-medium ">
+        <option *ngFor="let option of sortOptions" [value]="option.uuid">
+          {{ option.sortMethode }}
+        </option>
+      </select>
+    </div>
+  </div>

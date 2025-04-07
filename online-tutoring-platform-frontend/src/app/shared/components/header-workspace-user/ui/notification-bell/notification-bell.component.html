@@ -1,0 +1,48 @@
+<div class="relative">
+  <button
+    (click)="toggleNotifications()"
+    class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 relative"
+    aria-label="Notifications"
+  >
+    <app-icon iconName="bell" class="h-6 w-6"></app-icon>
+    <span *ngIf="hasUnread" class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+  </button>
+
+  <!-- Notification Dropdown -->
+  <div *ngIf="notificationOpen" class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none z-50 animate-fadeIn">
+    <div class="px-4 py-3">
+      <p class="text-sm font-medium text-gray-900">Notifications</p>
+    </div>
+    <div class="py-1 max-h-96 overflow-y-auto">
+      <div *ngFor="let notification of notifications"
+           [class.bg-gray-50]="!notification.read"
+           class="px-4 py-3 hover:bg-gray-100 transition-colors duration-150">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 pt-0.5">
+            <app-icon [iconName]="notification.icon" class="h-5 w-5 text-gray-400"/>
+          </div>
+          <div class="ml-3 flex-1">
+            <p class="text-sm font-medium text-gray-900">{{notification.title}}</p>
+            <p class="text-sm text-gray-500">{{notification.message}}</p>
+            <p class="mt-1 text-xs text-gray-400">{{notification.time}}</p>
+          </div>
+          <button
+            *ngIf="!notification.read"
+            (click)="markAsRead(notification.id)"
+            class="ml-2 text-xs font-medium text-primary-600 hover:text-primary-800"
+          >
+            Mark read
+          </button>
+        </div>
+      </div>
+      <div *ngIf="notifications.length === 0" class="px-4 py-3 text-center text-sm text-gray-500">
+        No new notifications
+      </div>
+    </div>
+    <div class="px-4 py-2">
+      <a href="/notifications" class="block text-center text-sm font-medium text-primary-600 hover:text-primary-800">
+        View all notifications
+      </a>
+    </div>
+  </div>
+</div>

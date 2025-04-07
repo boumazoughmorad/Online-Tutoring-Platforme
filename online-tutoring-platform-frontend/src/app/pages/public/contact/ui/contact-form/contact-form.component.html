@@ -1,0 +1,79 @@
+<div class="bg-white p-8 rounded-xl shadow-sm">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Envoyez-nous un message</h2>
+    
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <!-- Success Message -->
+      <div *ngIf="isSubmitted" class="mb-6 p-4 bg-green-50 text-green-800 rounded-lg">
+        <div class="flex items-center">
+          <app-icon [iconName]="'contact_form_succes'"/>
+          <span>Merci pour votre message! Nous vous répondrons dans les 24 heures.</span>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <app-input-form
+      [formGroup]="contactForm"
+      controlName="name"
+      [isrequired]="true"
+      classInput="w-full  border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+      label="Nom complet"/>
+
+      <!-- Email -->
+      <app-input-form
+      [formGroup]="contactForm"
+      controlName="email"
+      type="email"
+      [isrequired]="true"
+      classInput="w-full  border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+      label="Email"/>
+
+      <!-- Subject -->
+      <app-input-form
+      [formGroup]="contactForm"
+      controlName="subject"
+      [isrequired]="true"
+      classInput="w-full  border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+      label="Sujet"/>
+
+      <!-- Message -->
+      <app-input-form
+      [formGroup]="contactForm"
+      controlName="message"
+      type="textarea"
+      id="message"
+      errorMessage="Veuillez entrer votre message"
+      [isrequired]="true"
+      classInput="w-full  border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+      label="Message"/>
+
+
+      <!-- Contact Method -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Préférence de contact</label>
+        <div class="space-y-2">
+          <div class="flex items-center">
+            <input id="contact-email" type="radio" value="email" formControlName="contactMethod"
+              class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
+            <label for="contact-email" class="ml-3 block text-sm font-medium text-gray-700">Email</label>
+          </div>
+          <div class="flex items-center">
+            <input id="contact-phone" type="radio" value="phone" formControlName="contactMethod"
+              class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
+            <label for="contact-phone" class="ml-3 block text-sm font-medium text-gray-700">Téléphone</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-8">
+        <button type="submit" [disabled]="contactForm.invalid || isLoading"
+          class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50">
+          <span *ngIf="!isLoading">Envoyer le message</span>
+          <span *ngIf="isLoading">
+            <app-icon [iconName]="'form_loading'"/>
+            Envoi en cours...
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>

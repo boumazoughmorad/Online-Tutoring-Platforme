@@ -1,0 +1,148 @@
+<div class="min-h-screen bg-gray-100">
+
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+    <!-- Main Feed -->
+    <div class="space-y-6">
+      <!-- Create Post -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <div class="flex gap-3">
+          <img 
+            [src]="currentUser.avatar" 
+            alt="User avatar" 
+            class="h-10 w-10 rounded-full object-cover"
+          >
+          <form 
+            [formGroup]="postForm" 
+            (ngSubmit)="createPost()" 
+            class="flex-1"
+          >
+            <textarea
+              formControlName="content"
+              rows="3"
+              class="w-full border-0 focus:ring-0 resize-none text-gray-700 placeholder-gray-400 text-sm sm:text-base"
+              placeholder="What's on your mind?"
+            ></textarea>
+            <div class="flex justify-between items-center pt-3 border-t">
+              <div class="flex gap-2">
+                <button 
+                  type="button" 
+                  class="p-2 rounded-full hover:bg-gray-100 text-gray-500 transition-colors"
+                >
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+                <button 
+                  type="button" 
+                  class="p-2 rounded-full hover:bg-gray-100 text-gray-500 transition-colors"
+                >
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </div>
+              <button
+                type="submit"
+                [disabled]="!postForm.value.content"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors"
+              >
+                Post
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex justify-center py-10">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+  
+      <!-- Posts Feed -->
+      <div *ngFor="let post of posts" class="bg-white rounded-lg shadow-md overflow-hidden">
+        <!-- Post Header -->
+        <div class="p-4">
+          <div class="flex items-center gap-3">
+            <img 
+              [src]="post.author.avatar" 
+              alt="Author avatar" 
+              class="h-10 w-10 rounded-full object-cover"
+            >
+            <div>
+              <h3 class="font-semibold text-sm sm:text-base">{{post.author.name}}</h3>
+              <p class="text-xs text-gray-500">
+                {{post.createdAt | date:'mediumDate'}} at {{post.createdAt | date:'shortTime'}}
+                <span class="ml-1 px-2 py-0.5 bg-gray-100 rounded-full text-xs">{{post.author.role}}</span>
+              </p>
+            </div>
+          </div>
+          <p class="mt-3 text-gray-800 text-sm sm:text-base">{{post.content}}</p>
+        </div>
+  
+        <!-- Post Actions -->
+        <div class="border-t border-b border-gray-100 px-4 py-2 flex justify-between">
+          <button
+            (click)="likePost(post.id)"
+            [class.text-indigo-600]="post.isLiked"
+            class="flex items-center gap-1 text-gray-500 hover:text-indigo-600 transition-colors text-sm sm:text-base"
+          >
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
+            </svg>
+            <span>Like ({{post.likes}})</span>
+          </button>
+          <button class="flex items-center gap-1 text-gray-500 hover:text-indigo-600 transition-colors text-sm sm:text-base">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Comment</span>
+          </button>
+          <button class="flex items-center gap-1 text-gray-500 hover:text-indigo-600 transition-colors text-sm sm:text-base">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
+            </svg>
+            <span>Share</span>
+          </button>
+        </div>
+  
+        <!-- Comments Section -->
+        <div class="p-4 space-y-3">
+          <div *ngFor="let comment of post.comments" class="flex gap-3">
+            <img 
+              [src]="comment.author.avatar" 
+              alt="Commenter avatar" 
+              class="h-8 w-8 rounded-full object-cover"
+            >
+            <div class="flex-1 bg-gray-50 rounded-lg p-3">
+              <div class="flex justify-between">
+                <h4 class="font-semibold text-sm">{{comment.author.name}}</h4>
+                <span class="text-xs text-gray-500">{{comment.createdAt | date:'shortTime'}}</span>
+              </div>
+              <p class="text-sm text-gray-800 mt-1">{{comment.content}}</p>
+            </div>
+          </div>
+  
+          <!-- Add Comment -->
+          <div class="flex gap-3">
+            <img 
+              [src]="currentUser.avatar" 
+              alt="User avatar" 
+              class="h-8 w-8 rounded-full object-cover"
+            >
+            <div class="flex-1">
+              <input
+                type="text"
+                #commentInput
+                (keyup.enter)="addComment(post.id, commentInput.value); commentInput.value = ''"
+                placeholder="Write a comment..."
+                class="w-full border-0 border-b border-gray-200 focus:border-indigo-500 focus:ring-0 px-0 py-1 text-sm sm:text-base"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

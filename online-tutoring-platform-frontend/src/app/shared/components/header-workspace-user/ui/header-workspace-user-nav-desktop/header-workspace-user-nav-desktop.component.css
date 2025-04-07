@@ -1,0 +1,10 @@
+.router-link-active {
+   
+    border-color: var(--primary);
+   
+  }
+  .router-link-active {
+   
+    color: var(--primary);; /* blue-700 */
+  }
+    

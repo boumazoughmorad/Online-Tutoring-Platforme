@@ -1,0 +1,73 @@
+<div class="space-y-8">
+    <div class="bg-white p-8 rounded-xl shadow-sm">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations de contact</h2>
+      
+      <div class="space-y-6">
+        <!-- Email -->
+        <div class="flex items-start">
+          <div class="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
+            <app-icon [iconName]="'contact_email'"/>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-lg font-medium text-gray-900">Email</h3>
+            <p class="text-gray-600">{{ 'contact@tutoringplatform.com' }}</p>
+
+            <p class="text-gray-600">{{ 'contact@tutoringplatform.com' }}</p>
+
+          </div>
+        </div>
+        
+        <!-- Phone -->
+        <div class="flex items-start">
+          <div class="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
+            <app-icon [iconName]="'contact_phone'"/>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-lg font-medium text-gray-900">Téléphone</h3>
+            <p class="text-gray-600">(+212) 0 649-952-417</p>
+            <p class="text-gray-600">Lundi-Vendredi, 9h-17h</p>
+          </div>
+        </div>
+        
+        <!-- Address -->
+        <div class="flex items-start">
+          <div class="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
+            <app-icon [iconName]="'contact_address'"/>
+
+          </div>
+          <div class="ml-4">
+            <h3 class="text-lg font-medium text-gray-900">Bureau</h3>
+            <p class="text-gray-600">123 Rue de l'Éducation</p>
+            <p class="text-gray-600">Paris, 75000, France</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Social Media -->
+    <div class="bg-white p-8 rounded-xl shadow-sm">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Suivez-nous</h2>
+      <div class="flex space-x-6">
+        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <span class="sr-only">Facebook</span>
+          <app-icon [iconName]="'contact_facebook'"/>
+
+        </a>
+        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <span class="sr-only">Twitter</span>
+          <app-icon [iconName]="'contact_twitter'"/>
+
+        </a>
+        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <span class="sr-only">Instagram</span>
+          <app-icon [iconName]="'contact_instagram'"/>
+
+        </a>
+        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+          <span class="sr-only">LinkedIn</span>
+          <app-icon [iconName]="'contact_linkdin'"/>
+
+        </a>
+      </div>
+    </div>
+  </div>

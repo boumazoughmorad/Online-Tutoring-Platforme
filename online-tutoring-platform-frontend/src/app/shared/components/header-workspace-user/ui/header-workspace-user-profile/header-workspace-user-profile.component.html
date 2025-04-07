@@ -1,0 +1,53 @@
+<div class="ml-4 relative" #profileDropdown>
+    <button 
+      (click)="toggleDropdown()"
+      class="max-w-xs flex items-center text-sm rounded-full "
+      aria-expanded="false"
+      aria-haspopup="true"
+    >
+      <img class="h-8 w-8 rounded-full" [src]="userProfile.avatar || '/assets/icons/default-avatar.png'" alt="User profile">
+      <span class="hidden md:inline ml-2 text-sm font-medium text-gray-700">{{userProfile.name || 'User'}}</span>
+      <app-icon 
+        iconName="chevron_down" 
+        class="hidden md:block ml-1 h-4 w-4 text-gray-500"
+        [class.rotate-180]="dropdownOpen"
+      ></app-icon>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div 
+      *ngIf="dropdownOpen"
+      class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50 animate-fadeIn"
+      role="menu"
+      aria-orientation="vertical"
+      tabindex="-1"
+    >
+      <a 
+       
+        [routerLink]="['/workspace/profile']"  
+        class="flex gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+        role="menuitem"
+      >
+        <app-icon iconName="headerWorkspace_user" class="mr-2 h-4 w-4 inline"></app-icon>
+        Your Profile
+      </a>
+      <a 
+       
+        [routerLink]="['/workspace/settings']" 
+        class="flex gap-2  px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+        role="menuitem"
+      >
+        <app-icon iconName="headerWorkspace_settings" class="mr-2 h-4 w-4 inline"></app-icon>
+        Settings
+      </a>
+      <div class="border-t border-gray-200 my-1"></div>
+      <button 
+        (click)="logout()"
+        class="flex gap-2  w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+        role="menuitem"
+      >
+        <app-icon iconName="headerWorkspace_logout" class="mr-2 h-4 w-4 inline"></app-icon>
+        Sign out
+      </button>
+    </div>
+  </div>

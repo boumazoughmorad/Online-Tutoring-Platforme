@@ -1,0 +1,56 @@
+<div class="p-6">
+    <div class="flex items-start">
+      <div class="flex-shrink-0">
+        <img class="h-16 w-16 rounded-full object-cover" [src]="tutor().avatar" [alt]="tutor().name">
+      </div>
+      <div class="ml-4 flex-1">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-medium">{{tutor().name}}</h3>
+          <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
+            {{tutor().rating}} ★
+          </span>
+        </div>
+        <p class="text-sm text-gray-500 mt-1">{{tutor().specialization}}</p>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+          <!-- <app-icon iconName="globe" class="h-4 w-4 mr-1"></app-icon> -->
+          {{tutor().language}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+          <app-icon iconName="users" class="h-4 w-4 mr-1"></app-icon>
+          {{tutor().students}} students
+        </div>
+      </div>
+    </div>
+   
+    <p class="mt-4 text-sm text-gray-600 line-clamp-3">
+     
+      {{tutor().bio}}
+    </p>
+
+    <div *ngIf="tutor().introduce_linkyoutube" class="mt-4">
+      <div 
+        (click)="playVideo(tutor())"
+        class="relative cursor-pointer rounded-md overflow-hidden bg-gray-200 aspect-video"
+      >
+        <img 
+        [src]="'https://img.youtube.com/vi/' + tutor().introduce_linkyoutube" 
+          alt="Video thumbnail" 
+          class="w-full h-full object-cover"
+        >
+        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-20 transition-all">
+          <app-icon [iconName]="'play'" class="h-12 w-12 text-white opacity-90"></app-icon>
+        </div>
+      </div>
+      <p class="mt-1 text-xs text-gray-500">Click to watch introduction</p>
+    </div>
+    <div class="mt-4 flex items-center justify-between">
+      <span class="text-lg font-semibold">${{tutor().price}} <span class="text-sm font-normal text-gray-500">/ hour</span></span>
+      <button class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-700 text-sm font-medium">
+        Book trial
+      </button>
+    </div>
+  </div>
+
+
+
+

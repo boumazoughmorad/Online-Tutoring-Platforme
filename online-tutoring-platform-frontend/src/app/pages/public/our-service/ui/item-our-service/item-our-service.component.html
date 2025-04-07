@@ -1,0 +1,112 @@
+<li class="mb-4 last:mb-0">
+  <button
+    class="flex items-center justify-between w-full p-5 sm:p-6 rounded-xl border border-app-secondary-dark hover:border-app-primary-dark transition-all duration-300 group"
+    [class.bg-app-primary-light]="selectedCategoryId === category.id"
+    role="button"
+    
+    aria-expanded="selectedCategoryId === category.id"
+  >
+    <!-- Left side - Category info -->
+    <div class="flex items-start flex-1 min-w-0">
+      <!-- Toggle icon -->
+      <div class="mr-4 mt-0.5 flex-shrink-0">
+        <span class="text-app-primary-dark transition-transform duration-300"
+          [class.rotate-180]="selectedCategoryId === category.id">
+          <app-icon 
+            [iconName]="selectedCategoryId === category.id ? 'chevron_down' : 'chevron_right'" 
+            class="w-5 h-5 sm:w-6 sm:h-6"
+          />
+        </span>
+      </div>
+
+      <!-- Category name and preview -->
+      <div class="text-left min-w-0">
+        <h3 class="text-lg sm:text-xl lg:text-2xl font-semibold text-app-primary-dark truncate">
+          {{category.categorieName}}
+        </h3>
+        
+        <!-- Preview descriptions (shown when collapsed) -->
+        @if (selectedCategoryId !== category.id) {
+          <ul class="mt-2 space-y-1 text-sm sm:text-base text-gray-600 hidden sm:block">
+            @for (des of category.descriptions.slice(0, 2); track des.id) {
+              <li class="flex items-start truncate">
+                <span class="mr-2 text-app-primary-dark">•</span>
+                <span class="truncate">{{des.description}}</span>
+              </li>
+            }
+            @if (category.descriptions.length > 2) {
+              <li class="text-app-primary-dark font-medium">+{{category.descriptions.length - 2}} more</li>
+            }
+          </ul>
+        }
+      </div>
+    </div>
+
+    <!-- Right side - Category icon -->
+    <div class="ml-4 flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16">
+      <img 
+        [src]="category.icon" 
+        alt="{{category.categorieName}} icon"
+        class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+      >
+    </div>
+  </button>
+
+  <!-- Expanded content -->
+  @if (selectedCategoryId === category.id) {
+    <div class="mt-4 pl-5 sm:pl-10 animate-fadeIn">
+      <!-- Full descriptions -->
+      <ul class="mb-6 space-y-3 text-sm sm:text-base text-gray-700">
+        @for (des of category.descriptions; track des.id) {
+          <li class="flex">
+            <span class="mr-3 mt-1 flex-shrink-0 text-app-primary-dark">
+              <app-icon [iconName]="'check_circle'" class="w-4 h-4"/>
+            </span>
+            <span>{{des.description}}</span>
+          </li>
+        }
+      </ul>
+
+      <!-- Services grid -->
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (service of category.service; track service.id) {
+          <li class="relative p-5 sm:p-6 border border-app-secondary-light rounded-lg hover:border-app-primary-dark bg-white hover:shadow-md transition-all duration-300">
+            <div class="flex flex-col h-full">
+              <!-- Icon and Professional Name -->
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 p-2 bg-app-primary-light/10 rounded-lg flex items-center justify-center">
+                  <img 
+                    [src]="service.icon" 
+                    class="w-full h-auto object-contain"
+                    alt="{{service.name}} icon"
+                  >
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-gray-500">Professionals</p>
+                  <p class="text-base font-semibold text-app-primary-dark">{{service.nombreProf}}</p>
+                </div>
+              </div>
+              
+              <!-- Service Details -->
+              <div class="flex-1 mb-4">
+                <h3 class="text-lg font-semibold mb-2 text-gray-900">{{service.name}}</h3>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed">{{service.description}}</p>
+              </div>
+              
+              <!-- CTA -->
+              <div class="mt-auto pt-3 border-t border-app-secondary-light">
+                <a 
+                  class="inline-flex items-center text-app-primary-dark font-medium hover:text-app-primary-darker transition-colors"
+                  
+                >
+                  View details
+                  <app-icon [iconName]="'arrow_right'" class="ml-1 w-4 h-4"/>
+                </a>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</li>

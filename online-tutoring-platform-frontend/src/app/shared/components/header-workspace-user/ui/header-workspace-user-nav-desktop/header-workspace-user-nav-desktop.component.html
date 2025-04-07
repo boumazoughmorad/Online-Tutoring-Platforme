@@ -1,0 +1,32 @@
+<nav class="hidden md:flex space-x-8">
+    <a
+      [routerLink]="['/workspace/dashboard']"
+      routerLinkActive="router-link-active"
+   
+      class="inline-flex  items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors duration-200"
+    >
+      <app-icon iconName="headerWorkspace_dashboard" class="mr-2"></app-icon>
+      Tableau de bord
+    </a>
+  
+    <a
+      [routerLink]="['/workspace/my-courses']"
+      routerLinkActive="router-link-active"
+   
+      class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors duration-200"
+    >
+      <app-icon iconName="headerWorkspace_courses" class="mr-2"></app-icon>
+      Mes cours
+    </a>
+  
+    <a
+      [routerLink]="['/workspace/schedule']"
+      routerLinkActive="router-link-active"
+   
+      class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors duration-200"
+    >
+      <app-icon iconName="headerWorkspace_calendar" class="mr-2"></app-icon>
+      Calendrier
+    </a>
+  </nav>
+  

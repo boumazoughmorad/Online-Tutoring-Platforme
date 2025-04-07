@@ -1,0 +1,17 @@
+
+
+  
+
+
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .timeline-line {
+      left: 1.5rem;
+    }
+    
+    .timeline-content {
+      width: calc(100% - 4rem);
+      margin-left: 2rem;
+    }
+  }

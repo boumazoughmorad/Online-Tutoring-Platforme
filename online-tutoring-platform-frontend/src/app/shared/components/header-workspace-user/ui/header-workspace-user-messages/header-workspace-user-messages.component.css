@@ -1,0 +1,5 @@
+
+  .router-link-active {
+    border-color: var(--primary);
+    color: var(--primary);; 
+  }

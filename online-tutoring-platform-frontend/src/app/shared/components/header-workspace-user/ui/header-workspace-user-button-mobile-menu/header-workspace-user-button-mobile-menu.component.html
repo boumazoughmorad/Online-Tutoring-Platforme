@@ -1,0 +1,10 @@
+<div class="-mr-2 flex md:hidden">
+    <button 
+      (click)="toggleMobileMenu.emit()"
+      type="button" 
+      class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-var(--primary)"
+      aria-expanded="false"
+    >
+      <app-icon [iconName]="mobileMenuOpen() ? 'headerWorkspace_close' : 'headerWorkspace_menu'" class="h-6 w-6"></app-icon>
+    </button>
+  </div>

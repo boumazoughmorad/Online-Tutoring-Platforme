@@ -1,0 +1,191 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <app-dashboard-user-header />
+  
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Overview Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Student Card -->
+        <div *ngIf="userType === 'student'" class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-blue-50 text-blue-600 mr-4">
+              <app-icon iconName="book-open" class="h-6 w-6"></app-icon>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500">Cours actifs</p>
+              <p class="text-2xl font-semibold text-gray-900">3</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Tutor Card -->
+        <div *ngIf="userType === 'tutor'" class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-green-50 text-green-600 mr-4">
+              <app-icon iconName="users" class="h-6 w-6"></app-icon>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500">Étudiants actuels</p>
+              <p class="text-2xl font-semibold text-gray-900">12</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Common Card 1 -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-purple-50 text-purple-600 mr-4">
+              <app-icon [iconName]="'headerWorkspace_calendar'" class="h-6 w-6" />
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500">Sessions à venir</p>
+              <p class="text-2xl font-semibold text-gray-900">{{upcomingSessions}}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Common Card 2 -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-yellow-50 text-yellow-600 mr-4">
+              <app-icon iconName="clock" class="h-6 w-6"></app-icon>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500">Horaires cette semaine</p>
+              <p class="text-2xl font-semibold text-gray-900">{{hoursThisWeek}}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Common Card 3 -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-red-50 text-red-600 mr-4">
+              <app-icon iconName="alert-circle" class="h-6 w-6"></app-icon>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500">Actions en attente</p>
+              <p class="text-2xl font-semibold text-gray-900">{{pendingActions}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Schedule Section -->
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+              <h2 class="text-lg font-medium text-gray-900">Horaire hebdomadaire</h2>
+            </div>
+            <div class="p-6">
+              <app-weekly-calendar [events]="scheduleEvents"></app-weekly-calendar>
+            </div>
+          </div>
+  
+          <!-- Progress Section -->
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+              <h2 class="text-lg font-medium text-gray-900">
+                <span *ngIf="userType === 'student'">Mes progrès d'apprentissage</span>
+                <span *ngIf="userType === 'tutor'">Aperçu des progrès des élèves</span>
+              </h2>
+            </div>
+            <div class="p-6">
+              <div class="h-80">
+                <app-progress-chart [data]="progressData"></app-progress-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Right Column -->
+        <div class="space-y-6">
+          <!-- Recent Activity -->
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+              <h2 class="text-lg font-medium text-gray-900">Activité récente</h2>
+            </div>
+            <div class="p-6">
+              <ul class="space-y-4">
+                <li *ngFor="let activity of recentActivities" class="flex items-start">
+                  <div class="flex-shrink-0 mt-0.5">
+                    <div [ngClass]="{
+                      'bg-blue-100 text-blue-600': activity.type === 'course',
+                      'bg-green-100 text-green-600': activity.type === 'session',
+                      'bg-purple-100 text-purple-600': activity.type === 'message'
+                    }" class="p-2 rounded-full">
+                      <app-icon [iconName]="activity.icon" class="h-4 w-4"></app-icon>
+                    </div>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">{{activity.title}}</p>
+                    <p class="text-sm text-gray-500">{{activity.description}}</p>
+                    <p class="text-xs text-gray-400 mt-1">{{activity.time}}</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+  
+          <!-- Quick Actions -->
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+              <h2 class="text-lg font-medium text-gray-900">Actions rapides</h2>
+            </div>
+            <div class="p-6 grid grid-cols-2 gap-4">
+              <button *ngIf="userType === 'student'" class="p-4 bg-blue-50 rounded-lg text-blue-600 hover:bg-blue-100 transition-colors flex flex-col items-center">
+                <app-icon iconName="book-open" class="h-6 w-6 mb-2"></app-icon>
+                <span class="text-sm font-medium">Nouveau cours</span>
+              </button>
+              
+              <button *ngIf="userType === 'tutor'" class="p-4 bg-green-50 rounded-lg text-green-600 hover:bg-green-100 transition-colors flex flex-col items-center">
+                <app-icon iconName="user-plus" class="h-6 w-6 mb-2"></app-icon>
+                <span class="text-sm font-medium">Ajouter un étudiant</span>
+              </button>
+              
+              <button class="p-4 bg-purple-50 rounded-lg text-purple-600 hover:bg-purple-100 transition-colors flex flex-col items-center">
+                <app-icon iconName="headerWorkspace_calendar" class="h-6 w-6 mb-2"></app-icon>
+                <span class="text-sm font-medium">Calendrier</span>
+              </button>
+              
+              <button class="p-4 bg-yellow-50 rounded-lg text-yellow-600 hover:bg-yellow-100 transition-colors flex flex-col items-center">
+                <app-icon iconName="message-square" class="h-6 w-6 mb-2"></app-icon>
+                <span class="text-sm font-medium">Messages</span>
+              </button>
+            </div>
+          </div>
+  
+          <!-- Resource Center -->
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+              <h2 class="text-lg font-medium text-gray-900">
+                <span *ngIf="userType === 'student'">Ressources recommandées</span>
+                <span *ngIf="userType === 'tutor'">Matériel pédagogique</span>
+              </h2>
+            </div>
+            <div class="p-6">
+              <ul class="space-y-3">
+                <li *ngFor="let resource of resources" class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                  <div class="flex items-center">
+                    <div [ngClass]="{
+                      'bg-blue-100': resource.type === 'pdf',
+                      'bg-green-100': resource.type === 'video',
+                      'bg-purple-100': resource.type === 'link'
+                    }" class="p-2 rounded-lg mr-3">
+                      <app-icon [iconName]="resource.icon" class="h-4 w-4"></app-icon>
+                    </div>
+                    <span class="text-sm font-medium">{{resource.title}}</span>
+                  </div>
+                  <button class="text-gray-400 hover:text-gray-500">
+                    <app-icon iconName="download" class="h-4 w-4"></app-icon>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>

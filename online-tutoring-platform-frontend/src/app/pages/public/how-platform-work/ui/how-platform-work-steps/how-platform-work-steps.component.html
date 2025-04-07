@@ -1,0 +1,38 @@
+<div class="grid gap-20 mb-24">
+  <!-- Loop through steps -->
+  <div *ngFor="let step of steps; let i = index" class="grid md:grid-cols-2 gap-12 items-center">
+    <!-- Content (order changes for even steps) -->
+    <div [class.order-2]="i % 2 === 0" [class.md:order-1]="i % 2 === 0" class="md:order-2">
+      <div class="flex items-center mb-4">
+          <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center mr-4">
+            {{ step.number }}
+          </span>
+        <h2 class="text-2xl font-bold text-gray-900">{{ step.title }}</h2>
+      </div>
+      <p class="text-gray-600 mb-4">{{ step.description }}</p>
+
+      <!-- Features list if exists -->
+      <ul *ngIf="step.features" class="space-y-2 text-gray-600">
+        <li *ngFor="let feature of step.features" class="flex items-start">
+          <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>{{ feature.text }}</span>
+        </li>
+      </ul>
+
+      <!-- Cards if exists -->
+      <div *ngIf="step.cards" class="grid grid-cols-2 gap-4 mt-4">
+        <div *ngFor="let card of step.cards" class="bg-secondary/10 p-4 rounded-lg">
+          <h3 class="font-semibold text-primary mb-1">{{ card.title }}</h3>
+          <p class="text-sm text-gray-600">{{ card.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image (order changes for even steps) -->
+    <div [class.order-1]="i % 2 === 0" [class.md:order-2]="i % 2 === 0" class="order-1 rounded-xl overflow-hidden shadow-lg">
+      <img [src]="step.image" [alt]="step.title" class="w-full h-auto object-cover">
+    </div>
+  </div>
+</div>

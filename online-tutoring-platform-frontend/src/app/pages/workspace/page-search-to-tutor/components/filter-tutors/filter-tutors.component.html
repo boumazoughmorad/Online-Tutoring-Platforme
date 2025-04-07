@@ -1,0 +1,54 @@
+
+    <form class="bg-white rounded-lg shadow p-6 sticky top-4"   [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2 class="text-lg font-medium mb-4">Filtres</h2>
+
+      <!-- Price Filter -->
+       
+      <div class="mb-6">
+        <h3 class="text-sm font-medium mb-2">gamme de prix</h3>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-gray-500">{{introductoryPrices.service}}</span>
+          <span class="text-sm text-gray-500">{{limitPrices.service}}</span>
+        </div>
+        <input type="range" [min]="introductoryPrices.amount" [max]="limitPrices.amount" class="w-full" formControlName="priceOption">
+      </div>
+
+      <!-- Availability Filter -->
+      <div class="mb-6">
+        <h3 class="text-sm font-medium mb-2">Disponibilité</h3>
+        <app-select-form
+            [formGroup]="form"
+            label="Disponibilité"
+            ControlName="availability"
+            [dataSelect]="availability"
+            unit="value"
+            [required]="false"
+        /> 
+
+      </div>
+
+      <!-- Specialization Filter -->
+      <div class="mb-6">
+        <h3 class="text-sm font-medium mb-2">Spécialisation</h3>
+        <div class="space-y-2">
+          <label *ngFor="let spec of specialties" class="flex items-center">
+            <input
+              type="checkbox"
+              [value]="spec.uuid"
+              (change)="onCheckboxChange($event)"
+              class="h-4 w-4 text-primary-600 rounded"
+            >
+            <span class="ml-2 text-sm">{{ spec.name }}</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="w-full bg-primary text-white py-2 rounded-md hover:bg-secondary">
+        Appliquer des filtres
+      </button>
+    </form>
+
+
+
+
+ 

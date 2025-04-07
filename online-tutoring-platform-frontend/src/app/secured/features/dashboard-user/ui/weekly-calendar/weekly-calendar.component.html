@@ -1,0 +1,105 @@
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+  <!-- Header with week navigation -->
+  <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+    <button 
+      (click)="prevWeek()" 
+      class="p-2 rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+      aria-label="Previous week"
+    >
+      <app-icon iconName="chevron-left" class="h-5 w-5 text-gray-600"></app-icon>
+    </button>
+    
+    <h3 class="text-lg font-semibold text-gray-900">
+      <span class="hidden sm:inline">Week of</span> 
+      {{ weekStart | date:'MMM d' }} - {{ weekDays[6] | date:'MMM d' }}
+    </h3>
+    
+    <button 
+      (click)="nextWeek()" 
+      class="p-2 rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+      aria-label="Next week"
+    >
+      <app-icon iconName="chevron-right" class="h-5 w-5 text-gray-600"></app-icon>
+    </button>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div class="overflow-x-auto pb-2">
+    <table class="w-full">
+      <!-- Day headers -->
+      <thead>
+        <tr>
+          <th class="w-16 px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Time
+          </th>
+          <th *ngFor="let day of weekDays" class="px-2 py-3 text-center">
+            <div class="flex flex-col items-center">
+              <span class="text-xs font-medium text-gray-500 uppercase">
+                {{ days[day.getDay()] }}
+              </span>
+              <span 
+                [class]="'mt-1 w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ' + 
+                (isToday(day) ? 'bg-primary-100 text-primary-800' : 'text-gray-900')"
+              >
+                {{ day | date:'d' }}
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <!-- Time slots -->
+      <tbody class="divide-y divide-gray-100">
+        <tr *ngFor="let hour of hours" class="hover:bg-gray-50/50 transition-colors">
+          <!-- Time column -->
+          <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-500 border-r border-gray-100">
+            {{ hour }}:00
+          </td>
+          
+          <!-- Day cells -->
+          <td 
+            *ngFor="let day of weekDays" 
+            class="px-2 py-2 h-20 w-40 border border-gray-100 relative"
+            [class.bg-gray-50]="isPast(day, hour)"
+          >
+            <div class="absolute inset-0 overflow-y-auto p-1">
+              <div 
+                *ngFor="let event of getEventsForDayAndHour(day, hour)"
+                (click)="onEventClick(event)"
+                [class]="'group p-2 mb-1 text-xs rounded-lg cursor-pointer flex items-start ' + getEventColor(event)"
+              >
+                <span class="flex-shrink-0 mt-0.5 mr-1.5">
+                  <app-icon 
+                    [iconName]="getEventIcon(event.type)" 
+                    class="h-3 w-3"
+                  ></app-icon>
+                </span>
+                <span class="font-medium truncate group-hover:underline">
+                  {{ event.title }}
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Legend -->
+  <div class="px-5 py-3 border-t border-gray-100 bg-gray-50/50">
+    <div class="flex flex-wrap items-center gap-4 text-xs">
+      <div class="flex items-center">
+        <span class="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>
+        <span>Session</span>
+      </div>
+      <div class="flex items-center">
+        <span class="w-3 h-3 rounded-full bg-purple-500 mr-2"></span>
+        <span>Assignment</span>
+      </div>
+      <div class="flex items-center">
+        <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+        <span>Exam</span>
+      </div>
+    </div>
+  </div>
+</div>
