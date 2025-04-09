@@ -64,85 +64,7 @@ export const routes: Routes = [{
       roles: [] // Accessible to all
     }
   },
-  // {
-  //   path: 'workspace',
-  //   loadComponent: () =>
-  //     import('./secured/workspace/workspace.component').then(
-  //       (m) => m.WorkspaceComponent
-  //     ),
-  //   children: [    {
-  //     path: 'dashboard',
-  //     loadComponent: () =>
-  //       import(
-  //         './secured/features/dashboard-user/dashboard-user.component'
-  //         ).then((m) => m.DashboardUserComponent),
-  //   },
-  //     {
-  //       path: '',
-  //       loadComponent: () =>
-  //         import(
-  //           './secured/features/search-to-tutor/search-to-tutor.component'
-  //           ).then((m) => m.SearchToTutorComponent),
-  //     },
-  //     {
-  //       path: 'tuteur/:id',
-  //       loadComponent: () =>
-  //         import(
-  //           './secured/features/tutor-detail/tutor-detail.component'
-  //           ).then((m) => m.TutorDetailComponent),
-  //     },
-  //     {
-  //       path: 'messages',
-  //       loadComponent: () =>
-  //         import(
-  //           './secured/features/messages/messages.component'
-  //           ).then((m) => m.MessagesComponent),
-  //     },
-  //     {
-  //       path: 'my-courses',
-  //       loadComponent: () =>
-  //         import(
-  //           './secured/features/my-courses/my-courses.component'
-  //           ).then((m) => m.MyCoursesComponent),
-  //     },
-  //     {
-  //       path: 'schedule',
-  //       loadComponent: () =>
-  //         import(
-  //           './secured/features/schedule/schedule.component'
-  //           ).then((m) => m.ScheduleComponent),
-  //     },
-  //     {
-  //       path: 'settings',
-  //       loadComponent: () =>
-  //         import(
-  //           './secured/features/settings/settings.component'
-  //           ).then((m) => m.SettingsComponent),
-  //     },
-  //     {
-  //       path: 'online-course',
-  //       loadComponent: () =>
-  //         import(
-  //           './secured/features/online-course/online-course.component'
-  //           ).then((m) => m.OnlineCourseComponent),
-  //     },
-  //     {
-  //     path: 'live-classroom/:id',
-  //     loadComponent: () =>
-  //       import(
-  //         './secured/features/live-classroom/live-classroom.component'
-  //         ).then((m) => m.LiveClassroomComponent),
-  //   },
-  //   {
-  //     path: 'accueil',
-  //     loadComponent: () =>
-  //       import(
-  //         './secured/features/accueil-user/accueil-user.component'
-  //         ).then((m) => m.AccueilUserComponent),
-  //   },
-  //   ]
-  // },
-
+ 
   {
     path: 'workspace',
     loadComponent: () =>
@@ -153,16 +75,59 @@ export const routes: Routes = [{
       path: 'dashboard',
       loadComponent: () =>
         import(
-          './secured/features/dashboard-user/dashboard-user.component'
+          './pages/workspace/dashboard-user/page-dashboard-user.component'
           ).then((m) => m.DashboardUserComponent),
     },
       {
         path: '',
         loadComponent: () =>
           import(
-            './pages/workspace/page-search-to-tutor/search-to-tutor.component'
+            './pages/workspace/page-search-to-tutor/page-search-to-tutor.component'
             ).then((m) => m.SearchToTutorComponent),
-      }
+      },
+      {
+        path: 'tutor/:id',
+        loadComponent: () =>
+          import(
+            './pages/workspace/page-tutor-detail/page-tutor-detail.component'
+            ).then((m) => m.TutorDetailComponent),
+      },
+
+      {
+        path: 'conversation',
+        loadComponent: () =>
+          import(
+            './pages/workspace/page-messages/page-messages.component'
+            ).then((m) => m.MessagesComponent),
+      },
+      {
+        path: 'my-courses',
+        loadComponent: () =>
+          import(
+            './pages/workspace/page-my-courses/page-my-courses.component'
+            ).then((m) => m.MyCoursesComponent),
+      },
+      {
+        path: 'schedule',
+        loadComponent: () =>
+          import(
+            './pages/workspace/page-schedule/page-schedule.component'
+            ).then((m) => m.ScheduleComponent),
+      },
+      {
+        path: 'live-classroom/:id',
+        loadComponent: () =>
+          import(
+            './pages/workspace/page-live-classroom/page-live-classroom.component'
+            ).then((m) => m.LiveClassroomComponent),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import(
+            './pages/workspace/page-settings/page-settings.component'
+            ).then((m) => m.SettingsComponent),
+      },
     ]
     }
 ];
