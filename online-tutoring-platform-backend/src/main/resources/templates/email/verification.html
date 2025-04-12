@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:lang="${#locale.language}"
+      th:dir="${#locale.language == 'ar' ? 'rtl' : 'ltr'}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{email.verification.subject}">Email Verification</title>
+    <style>
+        /* Base styles (works for LTR and RTL) */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            direction: var(--text-direction);
+            text-align: var(--text-align);
+        }
+
+        /* Dynamic direction (Thymeleaf + CSS variables) */
+        :root {
+            --text-direction: ltr;
+            --text-align: left;
+        }
+        [dir="rtl"] {
+            --text-direction: rtl;
+            --text-align: right;
+        }
+
+        /* Card styling */
+        .email-card {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        /* Header (dynamic for Arabic) */
+        .header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+        }
+
+        /* Button (works in all languages) */
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #3498db;
+            color: #fff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .button:hover {
+            background: #2980b9;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            font-size: 13px;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+<div class="email-card">
+    <div class="header">
+        <h1 th:text="#{email.verification.header}">Verify Your Email</h1>
+    </div>
+
+    <div class="content" style="padding: 25px;">
+        <p th:text="#{email.verification.greeting(${name})}">Dear User,</p>
+        <p th:text="#{email.verification.message}">Thank you for registering. Click below to verify:</p>
+
+        <div style="text-align: center;">
+            <a th:href="${confirmationUrl}" class="button" th:text="#{email.verification.button}">
+                Verify Now
+            </a>
+        </div>
+
+        <p th:text="#{email.verification.expiration(${expirationTime})}">
+            Link expires in 24 hours.
+        </p>
+
+        <div th:if="${#locale.language == 'ar'}" style="background: #f5f5f5; padding: 15px; border-radius: 4px;">
+            <p th:text="#{email.verification.alternative}"></p>
+            <a th:href="${confirmationUrl}" th:text="${confirmationUrl}"></a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p th:text="#{email.verification.ignore}">If you didn’t request this, ignore it.</p>
+        <p th:text="#{email.verification.thanks}">Best regards,</p>
+        <p th:text="#{email.verification.team}">Our Team</p>
+    </div>
+</div>
+</body>
+</html>

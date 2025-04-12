@@ -1,0 +1,14 @@
+Dear [[${name}]],
+
+Thank you for registering with our service. Please verify your email address by clicking the link below:
+
+[[${confirmationUrl}]]
+
+This link will expire in [[${expirationTime}]].
+
+If you didn't request this email, you can safely ignore it.
+
+Need help? Contact us at [[${supportEmail}]].
+
+Best regards,
+Your App Team
